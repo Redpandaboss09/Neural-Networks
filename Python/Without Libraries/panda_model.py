@@ -26,7 +26,7 @@ X_train = X_train / 255.
 _, m_train = X_train.shape
 
 # Train the model
-W1, b1, W2, b2 = mf.gradient_descent(X_train, Y_train, 500, 0.1, m)
+W1, b1, W2, b2 = mf.gradient_descent(X_train, Y_train, 500, 0.4, m)
 
 # Test the model / See results
 pf.test_prediction(X_train, Y_train, 4, W1, b1, W2, b2)
