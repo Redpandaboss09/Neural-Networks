@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+*
+!.gitignore
+
+!/Python/Data
+!/Python/Using Libraries
+!/Python/Without Libraries
