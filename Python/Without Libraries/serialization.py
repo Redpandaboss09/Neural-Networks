@@ -25,15 +25,14 @@ def save_loss_chart(loss, filename):
     plt.legend(['Training Loss', 'Validation Loss'], loc='upper right')
     plt.savefig(filename)
 
-def save_accuracy_chart(accuracy, filename):
-    plt.plot(accuracy[0], label='Training Accuracy')
-    plt.plot(accuracy[1], label='Validation Accuracy')
+def save_accuracy_chart(accuracy_plot, filename):
+    plt.plot(accuracy_plot[0], label='Training Accuracy')
+    plt.plot(accuracy_plot[1], label='Validation Accuracy')
     plt.title("Accuracy Curve")
     plt.xlabel("Iteration")
     plt.ylabel("Accuracy")
     plt.legend(['Training Accuracy', 'Validation Accuracy'], loc='upper right')
     plt.savefig(filename)
-
 
 def load_model(filename):
     with open(filename, 'rb') as f:
