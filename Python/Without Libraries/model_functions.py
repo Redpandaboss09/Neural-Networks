@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 # Initial parameters
 def init_parameters():
@@ -60,33 +61,54 @@ def update_parameters(W1, b1, W2, b2, dW1, db1, dW2, db2, alpha):
 
 # Get accuracy and predictions for model loop
 def get_accuracy(predictions, Y):
-    print(predictions, Y)
+    # print(predictions, Y)
     return np.sum(predictions == Y) / Y.size
 
 def get_predictions(A2):
     return np.argmax(A2, 0)
 
 # Gradient descent for training
-def gradient_descent(X, Y, iterations, alpha, m):
+def gradient_descent(X_train, Y_train, X_val, Y_val, iterations, alpha, m):
     W1, b1, W2, b2, = init_parameters()
-    losses = [] # For plotting
+    losses = [] # For plotting loss on test set
+    val_losses = [] # For plotting loss on validation set
+    accuracy_train = [] # For plotting accuracy on test set
+    accuracy_val = [] # For plotting accuracy on validation set
+
+    start_time = time.time() # For timing the training
 
     for i in range(iterations):
-        Z1, A1, Z2, A2, = forward_propagation(W1, b1, W2, b2, X)
-        dW1, db1, dW2, db2 = backward_propagation(Z1, A1, Z2, A2, W1, W2, X, Y, m)
+        Z1, A1, Z2, A2, = forward_propagation(W1, b1, W2, b2, X_train)
+        dW1, db1, dW2, db2 = backward_propagation(Z1, A1, Z2, A2, W1, W2, X_train, Y_train, m)
         W1, b1, W2, b2 = update_parameters(W1, b1, W2, b2, dW1, db1, dW2, db2, alpha)
 
-        #Calculate loss
-        loss = -np.sum(np.log(A2) * one_hot(Y)) / m
+        # Calculate loss on test set
+        loss = -np.sum(np.log(A2) * one_hot(Y_train)) / m
         losses.append(loss)
 
+        # Calculate loss on validation set
+        _, _, _, A_val = forward_propagation(W1, b1, W2, b2, X_val)
+        loss_val = -np.sum(np.log(A_val) * one_hot(Y_val)) / m
+        val_losses.append(loss_val)
+
         if i % 10 == 0:
+            # Calculate training accuracy
             print("Iteration: ", i)
-            print("Loss: ", loss)
             predictions = get_predictions(A2)
-            print("Accuracy: ", get_accuracy(predictions, Y))
+            accuracy_iteration_train = get_accuracy(predictions, Y_train)
+            accuracy_train.append(accuracy_iteration_train)
+            print("Accuracy: ", accuracy_iteration_train)
+
+            # Calculate validation accuracy
+            predictions_val = get_predictions(A_val)
+            accuracy_iteration_val = get_accuracy(predictions_val, Y_val)
+            accuracy_val.append(accuracy_iteration_val)
 
         # Final accuracy
-        accuracy = get_accuracy(predictions, Y)
+        accuracy = get_accuracy(predictions, Y_train)
 
-    return W1, b1, W2, b2, losses, accuracy
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print("Elapsed time: ", elapsed_time)
+
+    return W1, b1, W2, b2, (losses, val_losses), accuracy, (accuracy_train, accuracy_val), elapsed_time

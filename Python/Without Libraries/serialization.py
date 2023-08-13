@@ -9,16 +9,29 @@ def save_model(params, filename):
     with open(filename, 'wb') as f:
         pickle.dump(params, f)
 
-def save_training_info(losses, accuracy, filename):
+def save_training_info(losses, accuracy, time, filename):
     with open(filename, 'wb') as f:
         pickle.dump(losses, f)
         pickle.dump(accuracy, f)
+        pickle.dump(time, f)
 
 # Save chart
 def save_loss_chart(loss, filename):
-    plt.plot(loss)
+    plt.plot(loss[0], label='Training loss')
+    plt.plot(loss[1], label='Validation loss')
+    plt.title("Loss Curves")
     plt.xlabel("Iteration")
     plt.ylabel("Loss")
+    plt.legend(['Training Loss', 'Validation Loss'], loc='upper right')
+    plt.savefig(filename)
+
+def save_accuracy_chart(accuracy, filename):
+    plt.plot(accuracy[0], label='Training Accuracy')
+    plt.plot(accuracy[1], label='Validation Accuracy')
+    plt.title("Accuracy Curve")
+    plt.xlabel("Iteration")
+    plt.ylabel("Accuracy")
+    plt.legend(['Training Accuracy', 'Validation Accuracy'], loc='upper right')
     plt.savefig(filename)
 
 
