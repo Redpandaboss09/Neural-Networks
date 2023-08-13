@@ -7,4 +7,10 @@ I intend to learn how I can create a NN from scratch to see how different types 
 
 ## The Project
 
-*TODO - FINISH PROJECT README*
+### The Dataset
+I am using the EMNIST dataset that combines the original MNIST dataset with more digits by adding altered versions of the original. There are about 300000 digit images (originally only 70000) 28 x 28 pixels in size. The MNIST dataset of 70000 feature more simple versions of digits (0 - 9) while the EMNIST dataset features different handwriting styles as well as numbers that are cropped, rotated, and written with errors.
+
+### The Code
+The project is made in Python first, C++ and Java second. The Python implementation from scratch is based on code written by [Samson Zhang](https://youtu.be/w8yWXqWQYmU) and the C++ and Java implementations are sort of "translated" versions. The "Without Libraries Section" on the Repo is the code I built upon Zhang's original code. I added time calculation, accuracy and loss calculations (For validation and training sets), as well as plots for those respective elements. All the important information from each NN run is saved into the output folder automatically. The version written with the use of a library is code I wrote from [NeuralNine](https://youtu.be/bte8Er0QhDg).
+
+### Some Results / Findings
