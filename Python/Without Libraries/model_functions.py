@@ -47,7 +47,6 @@ def backward_propagation(Z1, A1, Z2, A2, W1, W2, X, Y, m):
     dW1 = 1 / m * dZ1.dot(X.T)
     db1 = 1 / m * np.sum(dZ1, axis=1).reshape(-1, 1)
 
-
     return dW1, db1, dW2, db2
 
 # Update parameters
@@ -61,7 +60,13 @@ def update_parameters(W1, b1, W2, b2, dW1, db1, dW2, db2, alpha):
 
 # Get accuracy and predictions for model loop
 def get_accuracy(predictions, Y):
-    # print(predictions, Y)
+    temp1 = np.sum(predictions == Y)
+    print("Correct predictions: ", temp1)
+    print("Size of predictions: ", temp1.size)
+
+    print("Size of Y: ", Y.size)
+    print("Y", Y)
+
     return np.sum(predictions == Y) / Y.size
 
 def get_predictions(A2):

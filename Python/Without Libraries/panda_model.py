@@ -39,7 +39,7 @@ X_train = X_train / 255.
 _, m_train = X_train.shape
 
 # Train the model
-W1, b1, W2, b2, losses, accuracy, accuracy_plot, time = mf.gradient_descent(X_train, Y_train, X_val, Y_val, 500, 0.4, m)
+W1, b1, W2, b2, losses, accuracy, accuracy_plot, time = mf.gradient_descent(X_train, Y_train, X_val, Y_val, 20000, 0.4, m)
 
 # Plot the losses
 plt.plot(losses[0], label='Training loss')
